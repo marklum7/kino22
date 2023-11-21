@@ -1,21 +1,29 @@
 package com.example.kino22;
+
+import static android.app.Activity.RESULT_OK;
+
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
-import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.fragment.app.Fragment;
+
 
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link frahment_note_edit#newInstance} factory method to
  * create an instance of this fragment.note
  */
+
 public class frahment_note_edit extends Fragment {
+    ImageButton back;
     TextView nameEditText;
     EditText infoEditText;
     EditText commEditText;
@@ -86,19 +94,19 @@ public class frahment_note_edit extends Fragment {
 
 
 
-           //Button backButton = view.findViewById(R.id.imageButton);
-           //backButton.setOnClickListener(new View.OnClickListener() {
-           //    @Override
-           //    public void onClick(View view) {
-           //        note activity = (note) getActivity();
-           //        if(activity != null)
-           //        {
-           //            activity.BackData(infoEditText.getText().toString(),nameEditText.getText().toString(),commEditText.getText().toString());
-           //        }
-           //    }
-           //});
+           back = view.findViewById(R.id.Backbutton);
+
         }
         return view;
     }
-
+    String Position;
+    public void OnBackButtonClick(View view) {
+        Intent returnIntent = new Intent();
+        returnIntent.putExtra(MainActivity.KEY_NAME,nameEditText.getText().toString());
+        returnIntent.putExtra(MainActivity.KEY_INFO,infoEditText.getText().toString());
+        returnIntent.putExtra(MainActivity.KEY_COMM,commEditText.getText().toString());
+        returnIntent.putExtra(MainActivity.KEY_POSITION, Integer.valueOf(Position));
+        getActivity().setResult(RESULT_OK,returnIntent);
+        getActivity().finish();
+    }
 }

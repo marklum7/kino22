@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -74,27 +75,27 @@ public class note extends AppCompatActivity {
         Position = String.valueOf(fromMainActivityIntent.getIntExtra(MainActivity.KEY_POSITION,-1));
     }
 
-   public void BackData(String theme, String note, String s)
-   {
-       Intent returnIntent = new Intent();
-       returnIntent.putExtra(MainActivity.KEY_INFO, String.valueOf(infoEditText));
-       returnIntent.putExtra(MainActivity.KEY_COMM, String.valueOf(commEditText));
-       returnIntent.putExtra(MainActivity.KEY_NAME, String.valueOf(nameEditText));
-       returnIntent.putExtra(MainActivity.KEY_POSITION,Position);
-       setResult(RESULT_OK,returnIntent);
-       finish();
-   }
+  //public void BackData(String theme, String note, String s)
+  //{
+  //    Intent returnIntent = new Intent();
+  //    returnIntent.putExtra(MainActivity.KEY_INFO, String.valueOf(infoEditText));
+  //    returnIntent.putExtra(MainActivity.KEY_COMM, String.valueOf(commEditText));
+  //    returnIntent.putExtra(MainActivity.KEY_NAME, String.valueOf(nameEditText));
+  //    returnIntent.putExtra(MainActivity.KEY_POSITION,Position);
+  //    setResult(RESULT_OK,returnIntent);
+  //    finish();
+  //}
 
- //  public void OnBackButtonClick(View view)
- //  {
- //      //возврат активити и передача в бд элементов
- //      Intent returnIntent = new Intent();
- //      returnIntent.putExtra(MainActivity.KEY_NAME,nameEditText.getText().toString());
- //      returnIntent.putExtra(MainActivity.KEY_INFO,infoEditText.getText().toString());
- //      returnIntent.putExtra(MainActivity.KEY_COMM,commEditText.getText().toString());
- //      returnIntent.putExtra(MainActivity.KEY_POSITION, Integer.valueOf(Position));
- //      setResult(RESULT_OK,returnIntent);
- //      finish();
-
- //  }
+    //public void OnBackButtonClick1(View view)
+    //{
+        //    //возврат активити и передача в бд элементов
+        //    Intent returnIntent = new Intent();
+        //    returnIntent.putExtra(MainActivity.KEY_NAME,nameEditText.getText().toString());
+        //    returnIntent.putExtra(MainActivity.KEY_INFO,infoEditText.getText().toString());
+        //    returnIntent.putExtra(MainActivity.KEY_COMM,commEditText.getText().toString());
+        //    returnIntent.putExtra(MainActivity.KEY_POSITION, Integer.valueOf(Position));
+        //    setResult(RESULT_OK,returnIntent);
+        //    finish();
+        //
+        //}
 }

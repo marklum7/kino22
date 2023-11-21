@@ -26,10 +26,7 @@ public class MainActivity extends AppCompatActivity {
     final public static String KEY_IMAGE = "image";
     final public static String KEY_POSITION = "position";
 
-
-
     ListView ThemesListView;
-
     SimpleCursorAdapter noteAdapter;
     DataBaseAccessor db;
 
