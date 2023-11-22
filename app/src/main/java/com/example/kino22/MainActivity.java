@@ -26,9 +26,14 @@ public class MainActivity extends AppCompatActivity {
     final public static String KEY_IMAGE = "image";
     final public static String KEY_POSITION = "position";
 
+
+
     ListView ThemesListView;
+
     SimpleCursorAdapter noteAdapter;
     DataBaseAccessor db;
+
+    static String raspoloz = "default";
 
     // создание launcher для получения данных из дочерней активити
     ActivityResultLauncher<Intent> NotesLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
@@ -97,6 +102,8 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+
+
     /**
      * Обновляет listView путем установки нового адаптера
      * @return Адаптер для обновления listView
@@ -117,5 +124,16 @@ public class MainActivity extends AppCompatActivity {
         super.onDestroy();
         // закрыть БД
         db.close();
+    }
+    // выбор режима отображеня
+
+    public void Default(View view) {
+        raspoloz = "default";
+        System.out.println(raspoloz);
+    }
+
+    public void Custom(View view) {
+        raspoloz = "Custom";
+        System.out.println(raspoloz);
     }
 }

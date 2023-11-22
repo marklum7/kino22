@@ -16,6 +16,10 @@
             android:name=".note"
             android:exported="false" />
         <activity
+            android:name=".frahment_note_edit"
+            android:exported="false" />
+
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>

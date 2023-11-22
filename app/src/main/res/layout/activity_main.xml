@@ -10,22 +10,49 @@
     <ListView
 
         android:id="@+id/ListView"
-        android:layout_width="412dp"
-        android:layout_height="537dp"
+        android:layout_width="411dp"
+        android:layout_height="358dp"
+        android:layout_marginTop="12dp"
         android:divider="@null"
         android:dividerHeight="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
     <ImageView
+        android:id="@+id/imageView2"
         android:layout_width="200dp"
         android:layout_height="200dp"
         android:src="@drawable/logocin"
-        app:layout_constraintBottom_toTopOf="@+id/ListView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="Default"
+        android:backgroundTint="#FDF100"
+        android:textColor="#CE1141"
+        android:text="Default"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ListView"
+        tools:ignore="MissingConstraints" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="Custom"
+        android:text="Custom"
+        android:textColor="#CE1141"
+        android:backgroundTint="#FDF100"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ListView"
+        tools:ignore="MissingConstraints" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
