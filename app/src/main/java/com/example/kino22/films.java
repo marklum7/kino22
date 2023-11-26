@@ -1,6 +1,4 @@
 package com.example.kino22;
-
-
 /**
  * Класс заметок
  */

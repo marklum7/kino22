@@ -21,8 +21,6 @@ public class note extends AppCompatActivity {
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_note);
         // сохранение данных в переменные
@@ -37,9 +35,6 @@ public class note extends AppCompatActivity {
 
         Position = fromMainActivityIntent.getExtras().getString(MainActivity.KEY_POSITION);
         // изменение фрагмента в зависимости от нажатой кнопки
-        FrameLayout frameLayout = (FrameLayout) findViewById(R.id.fragmentContainerView);
-        if(MainActivity.raspoloz.equals("default")){
-            frameLayout.setTransitionName("com.example.kino22.frahment_note_edit");
             frahment_note_edit fragment = new frahment_note_edit();
             Bundle bundle = new Bundle();
             //передача данных во фрагмент
@@ -54,23 +49,10 @@ public class note extends AppCompatActivity {
                     .commit();
             // изменение фрагмента в зависимости от нажатой кнопки
         }
-        if (MainActivity.raspoloz.equals("Custom")){
-            frameLayout.setTransitionName("com.example.kino22.frahment_note_edit2");
-            frahment_note_edit2 fragment2 = new frahment_note_edit2();
-            Bundle bundle = new Bundle();
-            bundle.putString(MainActivity.KEY_NAME,name);
-            bundle.putString(MainActivity.KEY_INFO,info);
-            bundle.putString(MainActivity.KEY_COMM,comm);
-            bundle.putString(MainActivity.KEY_IMAGE,imag);
-            fragment2.setArguments(bundle);
-
-            getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.fragmentContainerView,fragment2)
-                    .commit();
-        }
 
 
-    }
+
+
     // данные в бд
    public void BackData(String name,String info,String comm)
    {
