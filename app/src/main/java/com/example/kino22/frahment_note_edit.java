@@ -79,9 +79,9 @@ public class frahment_note_edit extends Fragment {
         if(bundle != null)
         {
             //добавление картинок для отображения активити
-            ImagesList.put("Sci-fi thrille", R.drawable.molodezka);
-            ImagesList.put("Mystery and suspense", R.drawable.trudnie);
-            ImagesList.put("Classic crime drama", R.drawable.ivan);
+            ImagesList.put("Sci-fi thrille", R.drawable.inc);
+            ImagesList.put("Mystery and suspense", R.drawable.stranger);
+            ImagesList.put("Classic crime drama", R.drawable.the);
             ImagesList.put("plus", R.drawable.plus);
             ImagesList.put("kuhn", R.drawable.kuhn);
             ImagesList.put("volk", R.drawable.volk);
@@ -107,7 +107,7 @@ public class frahment_note_edit extends Fragment {
             // выбор правильной картинки
             Integer id = ImagesList.get(image);
             if (id == null){
-                imageView.setImageResource(0);
+                imageView.setImageResource(R.drawable.inc);
             }else
                 imageView.setImageResource(id);
 
@@ -120,7 +120,7 @@ public class frahment_note_edit extends Fragment {
                    note activity = (note) getActivity();
                    if(activity != null)
                    {
-                       activity.BackData(nameEditText.getText().toString(), infoEditText.getText().toString(), commEditText.getText().toString());
+                       activity.BackData(nameEditText.getText().toString(), infoEditText.getText().toString(), commEditText.getText().toString(), image);
                    }
                }
            });

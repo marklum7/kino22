@@ -13,11 +13,13 @@ import android.widget.TextView;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 
 public class note extends AppCompatActivity {
     String Position;
-
+    private ExecutorService executorService = Executors.newSingleThreadExecutor();
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +35,7 @@ public class note extends AppCompatActivity {
         String imag = fromMainActivityIntent.getExtras().getString(MainActivity.KEY_IMAGE);
 
 
-        Position = fromMainActivityIntent.getExtras().getString(MainActivity.KEY_POSITION);
+        //Position = fromMainActivityIntent.getExtras().getString(MainActivity.KEY_POSITION);
         // изменение фрагмента в зависимости от нажатой кнопки
             frahment_note_edit fragment = new frahment_note_edit();
             Bundle bundle = new Bundle();
@@ -50,18 +52,39 @@ public class note extends AppCompatActivity {
             // изменение фрагмента в зависимости от нажатой кнопки
         }
 
-
-
-
-    // данные в бд
-   public void BackData(String name,String info,String comm)
+    class alax implements Runnable {
+        String connectionError = null;
+        String name;
+        String info;
+        String comm;
+        String image;
+        @Override
+        public void run() {
+            try {
+                postReq postReq = new postReq();
+                final String SERVICE_ADDRESS = "http://37.77.105.18/api/EntertainmentList";
+                postReq.doInBackground(SERVICE_ADDRESS,name, info, comm, image);
+            } catch (Exception ex) {
+                connectionError = ex.getMessage();
+            }
+        }
+    }
+   public void BackData(String name,String info,String comm, String image)
    {
        Intent returnIntent = new Intent();
        returnIntent.putExtra(MainActivity.KEY_NAME,name);
        returnIntent.putExtra(MainActivity.KEY_INFO,info);
        returnIntent.putExtra(MainActivity.KEY_COMM,comm);
-       returnIntent.putExtra(MainActivity.KEY_POSITION, Integer.valueOf(Position));
+       returnIntent.putExtra(MainActivity.KEY_IMAGE, image);
        setResult(RESULT_OK,returnIntent);
+       note.alax progressTask = new note.alax();
+       progressTask.name = name;
+       progressTask.info = info;
+       progressTask.comm = comm;
+       progressTask.image = image;
+
+       executorService.submit(progressTask);
        finish();
    }
+
 }
