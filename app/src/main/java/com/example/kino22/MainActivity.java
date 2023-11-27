@@ -36,10 +36,7 @@ public class MainActivity extends AppCompatActivity {
     final public static String KEY_POSITION = "position";
     private  static final int MY_PERMISSIONS_REQUEST_INTERNET = 777;
     private  static final String SERVICE_ADDRESS = "http://37.77.105.18/api/EntertainmentList";
-
     ListView ThemesListView;
-    ArrayAdapter<String> noteAdapter;
-    //DataBaseAccessor db;
 
     // создание launcher для получения данных из дочерней активити
     ActivityResultLauncher<Intent> NotesLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
@@ -51,17 +48,12 @@ public class MainActivity extends AppCompatActivity {
                     {
                         //получить данные
                         Intent returnedIntent = result.getData();
-                        //int id = returnedIntent.getIntExtra(KEY_POSITION,-1);
                         String name = returnedIntent.getStringExtra(KEY_NAME);
                         String info = returnedIntent.getStringExtra(KEY_INFO);
                         String comm = returnedIntent.getStringExtra(KEY_COMM);
                         String image = returnedIntent.getStringExtra(KEY_IMAGE);
-                        //ArrayList<films> sus = new ArrayList<films>();
-                        //обновить БД и интерфейс
-                        //db.updateNote(id,name,info,comm);
-                        //noteAdapter = AdapterUpdate(sus);
-                    }
 
+                    }
                 }
             });
 
@@ -76,12 +68,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // создать аксессор к бд
-        //db = new DataBaseAccessor(this);
         setContentView(R.layout.activity_main);
         ThemesListView = findViewById(R.id.ListView);
-
-        //noteAdapter = AdapterUpdate();
         filmAdapter = AdapterUpdate(new ArrayList<films>());
         Intent NoteIntent = new Intent(this, note.class);
 
@@ -90,40 +78,18 @@ public class MainActivity extends AppCompatActivity {
            @Override
            public void onItemClick(AdapterView<?> parent, View v, int position, long id)
            {
-               //Добыть данные из адаптера
-               //String name = filmAdapter.getItem(position);
-               //String info = filmAdapter.getItem(position);
-               //String comm = filmAdapter.getItem(position);
-               //String image =filmAdapter.getItem(position);
-               //отправить данные в дочернюю акливити
-              // NoteIntent.putExtra(KEY_NAME, name);
-              // NoteIntent.putExtra(KEY_INFO, info);
-              // NoteIntent.putExtra(KEY_COMM, comm);
-              // NoteIntent.putExtra(KEY_IMAGE, image);
-               System.out.println("----------------------------------");
                serverAccessor.getObject(filmes.get(position));
-               //System.out.println(serverAccessor.getObject(filmes.get(position)));
-               //String name = String.valueOf(filmes.get(position));
                //Добыть данные
                Map<String, String> data = serverAccessor.getObject(filmes.get(position));
                String name = data.get("name");
                String info = data.get("info");
                String comm = data.get("comm");
                String image = data.get("image");
-
-               System.out.println(name);
-               System.out.println(info);
-               System.out.println(comm);
-               System.out.println(image);
                //отправить данные в дочернюю акливити
                NoteIntent.putExtra(KEY_NAME, name);
                NoteIntent.putExtra(KEY_INFO, info);
                NoteIntent.putExtra(KEY_COMM, comm);
                NoteIntent.putExtra(KEY_IMAGE, image);
-               //id - идентификатор записи в БД
-               //без приведения к int перидется и получать long а я не хотел переписывать дочернюю активити
-               //NoteIntent.putExtra(KEY_POSITION,String.valueOf((int) id));
-
                //запустить дочернюю активити
                NotesLauncher.launch(NoteIntent);
            }
@@ -140,43 +106,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private ArrayAdapter<String> AdapterUpdate(ArrayList<films> list) {
-
         ArrayList<String> stringList = serverAccessor.getStringListFromNoteList(list);
-        //String[] bebs = {stringList.get(0), stringList.get(1)};
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1,stringList);
         // установить адаптер в listview
         ThemesListView.setAdapter(adapter);
         return adapter;
     }
-
-
-
-    /**
-     * Обновляет listView путем установки нового адаптера
-     * @return Адаптер для обновления listView
-     */
-  // private SimpleCursorAdapter AdapterUpdate() {
-  //     // получить адаптер из класса
-  //     SimpleCursorAdapter adapter = db.getCursorAdapter(this,
-  //             android.R.layout.two_line_list_item, // Разметка одного элемента ListView
-  //             new int[]{android.R.id.text1,android.R.id.text2}); // текст этого элемента
-
-  //     // установить адаптер в listview
-  //     ThemesListView.setAdapter(adapter);
-  //     return adapter;
-  // }
-
-  //  @Override
-  //  protected void onDestroy() {
-  //      super.onDestroy();
-  //      // закрыть БД
-  //      db.close();
-  //  }
-  //  // выбор режима отображеня
     class ProgressTask implements Runnable {
         String connectionError = null;
-
         @Override
         public void run() {
             try {
@@ -194,7 +132,6 @@ public class MainActivity extends AppCompatActivity {
                         }
                     }
                 });
-
             } catch (Exception ex) {
                 connectionError = ex.getMessage();
             }

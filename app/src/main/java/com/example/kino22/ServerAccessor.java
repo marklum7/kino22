@@ -37,17 +37,6 @@ public class ServerAccessor {
         }
         return stringList;
     }
-
-
-    public ArrayList<String> getStringForMain(ArrayList<films> filmList) {
-        ArrayList<String> stringList = new ArrayList<>();
-        for (films film : filmList) {
-            stringList.add(film.name);
-            stringList.add(film.info);
-        }
-        return stringList;
-    }
-
     public Map<String, String> getObject(films film){
         HashMap<String, String> infer = new HashMap<>();
         infer.put("name", film.name);

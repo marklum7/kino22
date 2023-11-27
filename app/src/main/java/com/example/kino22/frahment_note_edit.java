@@ -82,11 +82,6 @@ public class frahment_note_edit extends Fragment {
             ImagesList.put("Sci-fi thrille", R.drawable.inc);
             ImagesList.put("Mystery and suspense", R.drawable.stranger);
             ImagesList.put("Classic crime drama", R.drawable.the);
-            ImagesList.put("plus", R.drawable.plus);
-            ImagesList.put("kuhn", R.drawable.kuhn);
-            ImagesList.put("volk", R.drawable.volk);
-            ImagesList.put("ataka", R.drawable.ataka);
-            ImagesList.put("kavkaz", R.drawable.kavkaz);
             //создание переменных в которые передоются аргументы
             String noteName = bundle.getString(MainActivity.KEY_NAME);
             String noteInfo = bundle.getString(MainActivity.KEY_INFO);
