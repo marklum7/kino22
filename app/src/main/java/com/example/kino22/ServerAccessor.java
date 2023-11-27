@@ -1,7 +1,6 @@
 package com.example.kino22;
 
 import android.util.Log;
-import android.widget.Adapter;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -11,6 +10,8 @@ import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -37,6 +38,29 @@ public class ServerAccessor {
         return stringList;
     }
 
+
+    public ArrayList<String> getStringForMain(ArrayList<films> filmList) {
+        ArrayList<String> stringList = new ArrayList<>();
+        for (films film : filmList) {
+            stringList.add(film.name);
+            stringList.add(film.info);
+        }
+        return stringList;
+    }
+
+    public Map<String, String> getObject(films film){
+        HashMap<String, String> infer = new HashMap<>();
+        infer.put("name", film.name);
+        //System.out.println(film.info);
+        infer.put("info", film.info);
+        //System.out.println(film.comm);
+        infer.put("comm", film.comm);
+        //System.out.println(film.image);
+        infer.put("image", film.image);
+        return infer;
+    }
+
+
     /**
      * Получить данные с сервера
      * @return список заисей с сервера
@@ -60,6 +84,8 @@ public class ServerAccessor {
             Gson gson = new Gson();
             Type listOfComputers = new TypeToken<ArrayList<films>>() {
             }.getType();
+            content = content.substring(21);
+            content = content.substring(0, content.length() - 2);
             dataItems = gson.fromJson(content, listOfComputers);
             return dataItems;
         } catch (Exception ex) {

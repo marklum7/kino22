@@ -24,6 +24,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -37,32 +38,32 @@ public class MainActivity extends AppCompatActivity {
     private  static final String SERVICE_ADDRESS = "http://37.77.105.18/api/EntertainmentList";
 
     ListView ThemesListView;
-    //SimpleCursorAdapter noteAdapter;
+    ArrayAdapter<String> noteAdapter;
     //DataBaseAccessor db;
 
     // создание launcher для получения данных из дочерней активити
-   // ActivityResultLauncher<Intent> NotesLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
-   //         new ActivityResultCallback<ActivityResult>() {
-   //             @Override
-   //             public void onActivityResult(ActivityResult result) {
-   //                 // все ли хорошо при получении данных из дочерней активити?
-   //                 if(result.getResultCode() == Activity.RESULT_OK)
-   //                 {
-   //                     //получить данные
-   //                     Intent returnedIntent = result.getData();
-   //                     int id = returnedIntent.getIntExtra(KEY_POSITION,-1);
-   //                     String name = returnedIntent.getStringExtra(KEY_NAME);
-   //                     String info = returnedIntent.getStringExtra(KEY_INFO);
-   //                     String comm = returnedIntent.getStringExtra(KEY_COMM);
-   //                     //String image = returnedIntent.getStringExtra(KEY_IMAGE);
-//
-   //                     //обновить БД и интерфейс
-   //                     db.updateNote(id,name,info,comm);
-   //                     noteAdapter = AdapterUpdate();
-   //                 }
-//
-   //             }
-   //         });
+    ActivityResultLauncher<Intent> NotesLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult result) {
+                    // все ли хорошо при получении данных из дочерней активити?
+                    if(result.getResultCode() == Activity.RESULT_OK)
+                    {
+                        //получить данные
+                        Intent returnedIntent = result.getData();
+                        //int id = returnedIntent.getIntExtra(KEY_POSITION,-1);
+                        String name = returnedIntent.getStringExtra(KEY_NAME);
+                        String info = returnedIntent.getStringExtra(KEY_INFO);
+                        String comm = returnedIntent.getStringExtra(KEY_COMM);
+                        //String image = returnedIntent.getStringExtra(KEY_IMAGE);
+                        //ArrayList<films> sus = new ArrayList<films>();
+                        //обновить БД и интерфейс
+                        //db.updateNote(id,name,info,comm);
+                        //noteAdapter = AdapterUpdate(sus);
+                    }
+
+                }
+            });
 
 //
 
@@ -85,31 +86,48 @@ public class MainActivity extends AppCompatActivity {
         Intent NoteIntent = new Intent(this, note.class);
 
     //   // обработка клика по listView
-    //   ThemesListView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
-    //       @Override
-    //       public void onItemClick(AdapterView<?> parent, View v, int position, long id)
-    //       {
-    //           //Добыть данные из адаптера
+       ThemesListView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+           @Override
+           public void onItemClick(AdapterView<?> parent, View v, int position, long id)
+           {
+               //Добыть данные из адаптера
+               //String name = filmAdapter.getItem(position);
+               //String info = filmAdapter.getItem(position);
+               //String comm = filmAdapter.getItem(position);
+               //String image =filmAdapter.getItem(position);
+               //отправить данные в дочернюю акливити
+              // NoteIntent.putExtra(KEY_NAME, name);
+              // NoteIntent.putExtra(KEY_INFO, info);
+              // NoteIntent.putExtra(KEY_COMM, comm);
+              // NoteIntent.putExtra(KEY_IMAGE, image);
+               System.out.println("----------------------------------");
+               serverAccessor.getObject(filmes.get(position));
+               //System.out.println(serverAccessor.getObject(filmes.get(position)));
+               //String name = String.valueOf(filmes.get(position));
+               //Добыть данные
+               Map<String, String> data = serverAccessor.getObject(filmes.get(position));
+               String name = data.get("name");
+               String info = data.get("info");
+               String comm = data.get("comm");
+               String image = data.get("image");
 
-    //           String name = ((Cursor) noteAdapter.getItem(position)).getString(1);
-    //           String info = ((Cursor) noteAdapter.getItem(position)).getString(2);
-    //           String comm = ((Cursor) noteAdapter.getItem(position)).getString(3);
-    //           String image = ((Cursor) noteAdapter.getItem(position)).getString(4);
-    //           //отправить данные в дочернюю акливити
-    //           NoteIntent.putExtra(KEY_NAME, name);
-    //           NoteIntent.putExtra(KEY_INFO, info);
-    //           NoteIntent.putExtra(KEY_COMM, comm);
-    //           NoteIntent.putExtra(KEY_IMAGE, image);
+               System.out.println(name);
+               System.out.println(info);
+               System.out.println(comm);
+               System.out.println(image);
+               //отправить данные в дочернюю акливити
+               NoteIntent.putExtra(KEY_NAME, name);
+               NoteIntent.putExtra(KEY_INFO, info);
+               NoteIntent.putExtra(KEY_COMM, comm);
+               NoteIntent.putExtra(KEY_IMAGE, image);
+               //id - идентификатор записи в БД
+               //без приведения к int перидется и получать long а я не хотел переписывать дочернюю активити
+               //NoteIntent.putExtra(KEY_POSITION,String.valueOf((int) id));
 
-
-    //           //id - идентификатор записи в БД
-    //           //без приведения к int перидется и получать long а я не хотел переписывать дочернюю активити
-    //           NoteIntent.putExtra(KEY_POSITION,String.valueOf((int) id));
-
-    //           //запустить дочернюю активити
-    //           NotesLauncher.launch(NoteIntent);
-    //       }
-    //   });
+               //запустить дочернюю активити
+               NotesLauncher.launch(NoteIntent);
+           }
+       });
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.INTERNET)
                 != PackageManager.PERMISSION_GRANTED) {
             // Разрешение не предоставлено, запросить его у пользователя
@@ -124,13 +142,15 @@ public class MainActivity extends AppCompatActivity {
     private ArrayAdapter<String> AdapterUpdate(ArrayList<films> list) {
 
         ArrayList<String> stringList = serverAccessor.getStringListFromNoteList(list);
+        //String[] bebs = {stringList.get(0), stringList.get(1)};
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_1,
-                stringList);
+                android.R.layout.simple_list_item_1,stringList);
         // установить адаптер в listview
         ThemesListView.setAdapter(adapter);
         return adapter;
     }
+
+
 
     /**
      * Обновляет listView путем установки нового адаптера

@@ -18,5 +18,4 @@ public class films {
         this.comm = comm;
         this.image = image;
     }
-
 }

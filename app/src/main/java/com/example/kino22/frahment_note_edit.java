@@ -104,8 +104,8 @@ public class frahment_note_edit extends Fragment {
 
             imageView = vview.findViewById(R.id.imageView);
             // выбор правильной картинки
-            int id = ImagesList.get(imag);
-            imageView.setImageResource(id);
+            //int id = ImagesList.get(imag);
+            //imageView.setImageResource(id);
 
 
            //сохранения данных по нажатию кнопки
