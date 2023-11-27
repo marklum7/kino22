@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
                         String name = returnedIntent.getStringExtra(KEY_NAME);
                         String info = returnedIntent.getStringExtra(KEY_INFO);
                         String comm = returnedIntent.getStringExtra(KEY_COMM);
-                        //String image = returnedIntent.getStringExtra(KEY_IMAGE);
+                        String image = returnedIntent.getStringExtra(KEY_IMAGE);
                         //ArrayList<films> sus = new ArrayList<films>();
                         //обновить БД и интерфейс
                         //db.updateNote(id,name,info,comm);

@@ -79,9 +79,9 @@ public class frahment_note_edit extends Fragment {
         if(bundle != null)
         {
             //добавление картинок для отображения активити
-            ImagesList.put("molodezka", R.drawable.molodezka);
-            ImagesList.put("trudnie", R.drawable.trudnie);
-            ImagesList.put("ivan", R.drawable.ivan);
+            ImagesList.put("Sci-fi thrille", R.drawable.molodezka);
+            ImagesList.put("Mystery and suspense", R.drawable.trudnie);
+            ImagesList.put("Classic crime drama", R.drawable.ivan);
             ImagesList.put("plus", R.drawable.plus);
             ImagesList.put("kuhn", R.drawable.kuhn);
             ImagesList.put("volk", R.drawable.volk);
@@ -91,7 +91,7 @@ public class frahment_note_edit extends Fragment {
             String noteName = bundle.getString(MainActivity.KEY_NAME);
             String noteInfo = bundle.getString(MainActivity.KEY_INFO);
             String noteComm = bundle.getString(MainActivity.KEY_COMM);
-            String imag = bundle.getString(MainActivity.KEY_IMAGE);
+            String image = bundle.getString(MainActivity.KEY_IMAGE);
             //заполнение элементов
             commEditText = vview.findViewById(R.id.commEditText);
             commEditText.setText(noteComm);
@@ -103,9 +103,13 @@ public class frahment_note_edit extends Fragment {
             nameEditText.setText(noteName);
 
             imageView = vview.findViewById(R.id.imageView);
+
             // выбор правильной картинки
-            //int id = ImagesList.get(imag);
-            //imageView.setImageResource(id);
+            Integer id = ImagesList.get(image);
+            if (id == null){
+                imageView.setImageResource(0);
+            }else
+                imageView.setImageResource(id);
 
 
            //сохранения данных по нажатию кнопки
